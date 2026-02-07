@@ -1,0 +1,13 @@
+# ambiente
+venv/
+__pycache__/
+*.pyc
+
+# banco local
+*.db
+
+# variáveis
+.env
+
+# editor
+.vscode/

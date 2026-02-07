@@ -5,6 +5,8 @@ from app.models.financial_data import FinancialData
 from app.services.score_service import generate_score, get_score_history
 from app.schemas.score import ScoreHistoryOut
 from typing import List 
+from app.services.consent_service import has_consent
+from app.services.audit_service import log_action
 
 router = APIRouter(
     prefix="/score",
@@ -20,7 +22,7 @@ def calculate(user=Depends(get_current_user)):
         db.query(FinancialData)
         .filter(FinancialData.user_id == int(user["sub"]))
         .order_by(FinancialData.id.desc())
-        .first()
+        .first()    
     )
 
     if not financial_data:
@@ -28,7 +30,13 @@ def calculate(user=Depends(get_current_user)):
             status_code=400,
             detail="Nenhum dado financeiro encontrado para o usuário"
         )
-
+    
+    if not has_consent(db, int(user["sub"])):
+        raise HTTPException(
+            status_code=403,
+            detail="Consetimento não fornecido"
+        )
+    log_action(db, int(user["sub"]), "score_calculated")
     return generate_score(db, int(user["sub"]), financial_data)
 
 @router.get("/history", response_model=List[ScoreHistoryOut])

@@ -5,6 +5,7 @@ from app.db.engine import engine
 from app.models.user import User
 from app.models.financial_data import FinancialData
 from app.models.credit_score import CreditScore
+from app.models.user_consent import UserConsent
 
 Base.metadata.create_all(bind=engine)
 

@@ -1,0 +1,27 @@
+from datetime import datetime
+from app.models.user_consent import UserConsent
+
+CURRENT_CONSENT_VERSION = "1.0"
+
+def give_consent(db, user_id: int):
+    consent = UserConsent(
+        user_id=user_id,
+        accepted=True,
+        accepted_at=datetime.utcnow(),
+        version=CURRENT_CONSENT_VERSION
+    )
+    db.commit()
+    db.commit()
+    return consent
+
+def has_consent(db, user_id: int) -> bool:
+    return (
+        db.query(UserConsent)
+        ,filter(
+            UserConsent.user_id == user_id,
+            UserConsent.accepted == True,
+            UserConsent.version == CURRENT_CONSENT_VERSION
+        )
+        .first()
+        is not None
+    )
