@@ -1,10 +1,12 @@
-def calculate_score(financial_data):
+def calculate_score(financial_data, rules):
     score = 0
 
-    score += financial_data.income * 0.3
-    score += financial_data.history * 0.4
-    score += (100 - financial_data.debt) * 0.2
-    score += financial_data.consistency * 0.1
+    for rule in rules:
+        value = getattr(financial_data, rule.field, None)
 
-    final_score =int(min(max(score, 0), 1000))
-    return final_score
+        if value is None:
+            continue
+
+        score += value * rule.weight
+
+    return max(0, min(1000, int(score)))
