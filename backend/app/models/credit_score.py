@@ -5,7 +5,7 @@ from app.db.base import Base
 class CreditScore(Base):
     __tablename__ = "credit_scores"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     score = Column(Integer, nullable=False)
 

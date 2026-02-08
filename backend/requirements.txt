@@ -1,10 +1,9 @@
 fastapi
 uvicorn
 sqlalchemy
-psycopg2-binary
-pydantic
-python-jose
 alembic
-python-dotenv
+python-jose
 passlib
 argon2-cffi
+python-multipart
+pydantic

@@ -1,10 +1,7 @@
 from sqlalchemy import create_engine
-import os
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "sqlite:///./test.db"
-)
+
+DATABASE_URL = "sqlite:///./app.db"
 
 engine = create_engine(
     DATABASE_URL,

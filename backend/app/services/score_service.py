@@ -2,6 +2,9 @@ from app.models.score_rule import ScoreRule
 from app.services.score_engine import calculate_score
 from app.models.credit_score import CreditScore
 from app.services.score_snapshot import build_rules_snapshot
+from app.services.audit_service import log_action
+from app.utils.audit_actions import AuditAction
+from app.utils.audit_entities import AuditEntity
 
 ENGINE_VERSION = "1.0"
 
@@ -25,6 +28,14 @@ def generate_score(db, user_id: int, financial_data):
     db.add(score)
     db.commit()
     db.refresh(score)
+
+    log_action(
+        db=db,
+        user_id=user_id,
+        action=AuditAction.SCORE_GENERATED,
+        entity=AuditEntity.CREDIT_SCORE,
+        entity_id=score.id
+    )
 
     return score
 

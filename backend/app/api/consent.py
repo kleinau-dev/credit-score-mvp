@@ -13,5 +13,11 @@ router = APIRouter(
 def accepted_consent(user=Depends(get_current_user)):
     db = SessionLocal()
     give_consent(db, int(user["sub"]))
-    log_action(db, int(user["sub"]), "consent_given")
+    log_action(
+    db,
+    user_id=int(user["sub"]),
+    action="consent_given",
+    entity="user_consent",
+    entity_id=int(user["sub"])
+)
     return {"message": "Consentimento registrado com sucesso"}

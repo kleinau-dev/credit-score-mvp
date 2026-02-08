@@ -1,5 +1,8 @@
 from datetime import datetime
 from app.models.user_consent import UserConsent
+from app.services.audit_service import log_action
+from app.utils.audit_actions import AuditAction
+from app.utils.audit_entities import AuditEntity
 
 CURRENT_CONSENT_VERSION = "1.0"
 
@@ -12,6 +15,14 @@ def give_consent(db, user_id: int):
     )
     db.commit()
     db.commit()
+
+    log_action(
+        db=db,
+        user_id=user_id,
+        action=AuditAction.CONSENT_GIVEN,
+        entity=AuditEntity.USER_CONSENT
+    )
+
     return consent
 
 def has_consent(db, user_id: int) -> bool:

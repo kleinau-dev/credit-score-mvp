@@ -4,7 +4,7 @@ from app.db.base import Base
 class ScoreRule(Base):
     __tablename__ = "score_rules"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     field = Column(String, nullable=False)   
     weight = Column(Float, nullable=False)
