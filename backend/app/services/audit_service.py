@@ -12,11 +12,11 @@ def log_action(
     entity_id: int | None = None
 ):
     log = AuditLog(
-        user_id=user_id,
-        action=action.value,
-        entity=entity.value,
-        entity_id=entity_id
-    )
+    user_id=user_id,
+    action=action,
+    entity=entity,
+    entity_id=entity_id
+)
 
     db.add(log)
     db.commit()

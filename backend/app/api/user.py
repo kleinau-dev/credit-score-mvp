@@ -20,5 +20,11 @@ def delete_data(user=Depends(get_current_user)):
 @router.get("/export")
 def export_data(user=Depends(get_current_user)):
     db = SessionLocal()
-    log_action(db, int(user["sub"]), "user_data_deleted")
+    log_action(
+    db,
+    user_id=int(user["sub"]),
+    action="user_data_exported",
+    entity="user",
+    entity_id=int(user["sub"])
+)
     return export_user_data(db, int(user["sub"]))
