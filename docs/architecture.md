@@ -1,12 +1,33 @@
 # System Architecture
 
-The backend follows a layered architecture:
+The system follows a layered architecture to ensure maintainability, scalability, and clarity.
 
-- API Layer: Handles HTTP requests and responses (FastAPI)
-- Service Layer: Business rules and domain logic
-- Data Layer: Database models and persistence
-- Security Layer: Authentication, authorization and consent enforcement
+## Layers
 
-This separation ensures maintainability, testability and scalability.
+### API Layer
+- Handles HTTP requests and responses
+- Validates input and authentication
+- Delegates business logic to services
 
-All endpoints are exposed as REST APIs and documented using OpenAPI (Swagger).
+### Service Layer
+- Contains all business logic
+- Coordinates database operations
+- Responsible for audit logging and validations
+
+### Model Layer
+- SQLAlchemy ORM models
+- Database schema definitions
+- Relationships and constraints
+
+### Security Layer
+- JWT token generation and validation
+- Authentication dependencies
+- Role-based and permission-based access
+
+### Database
+- SQLite for development
+- Managed via Alembic migrations
+
+## Flow Example
+Client → API → Service → Model → Database  
+Security dependencies are enforced before business logic execution.

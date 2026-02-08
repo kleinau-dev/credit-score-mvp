@@ -1,14 +1,33 @@
-# Data Lifecycle Management
+# Data Lifecycle
 
-The system supports full user data lifecycle control.
+This document describes how user data flows through the system.
 
-Capabilities include:
+## 1. User Registration
+The user creates an account using email and password.
 
-- Explicit consent registration with versioning
-- Historical tracking of credit scores
-- Data export in structured format
-- Full data deletion upon user request
-- Audit trail of critical operations
-- Retention policy support for score data
+## 2. Authentication
+The user authenticates and receives a JWT access token.
 
-The architecture allows future implementation of automated data retention and anonymization routines.
+## 3. Consent
+The user explicitly accepts the current consent version before sensitive operations.
+
+## 4. Financial Data Submission
+The user submits financial information used for credit score calculation.
+
+## 5. Credit Score Calculation
+The system calculates a credit score based on enabled rules and stores:
+- Score value
+- Rule snapshot
+- Engine version
+- Timestamp
+
+## 6. History
+Each score calculation is preserved and accessible to the user.
+
+## 7. Data Export
+The user can export all personal and financial data.
+
+## 8. Data Deletion
+The user can permanently delete their data from the system.
+
+All sensitive actions are logged in the audit system.

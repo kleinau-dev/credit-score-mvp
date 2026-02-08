@@ -1,25 +1,29 @@
-# API Reference
+# API Reference – Credit Score API
 
-The API is fully documented using Swagger.
+The API is fully documented via Swagger (OpenAPI).
 
-Available endpoints include:
+Base URL (development):
+http://localhost:8000
 
-Authentication:
+## Authentication
 - POST /auth/register
 - POST /auth/login
 
-Financial Data:
-- POST /financial-data/
+## Financial Data
+- POST /financial-data
 
-Score:
-- POST /score/
+## Credit Score
+- POST /score
 - GET /score/history
 
-User Data:
+## User Data
 - GET /user/export
 - DELETE /user/data
 
-Consent:
-- POST /consent/
+## Consent
+- POST /consent/accepted
 
-All protected endpoints require a valid Bearer token.
+## Health
+- GET /
+
+All protected endpoints require a valid JWT token via Authorization header.
