@@ -1,50 +1,96 @@
-# Credit Score MVP – Backend
+# Credit Score Platform — Backend MVP
 
-This repository contains the backend implementation of a Credit Score MVP.
+Este repositório contém o backend do MVP da plataforma de Score de Crédito, desenvolvido com foco em arquitetura sólida, segurança, compliance e escalabilidade futura.
 
-## Overview
-The system provides a secure and auditable API that allows users to:
-- Register and authenticate
-- Submit financial data
-- Calculate and track credit scores
-- Manage consent
-- Export and delete personal data
+O escopo contempla exclusivamente a camada backend, conforme definido no projeto.
 
-The backend is designed with security, compliance, and scalability in mind.
+---
 
-## Tech Stack
-- Python 
+## Visão Geral
+
+A API fornece toda a base necessária para cálculo, versionamento e auditoria de score de crédito, incluindo autenticação, consentimento do usuário e gestão de dados financeiros.
+
+A arquitetura foi projetada para suportar evolução futura com integrações externas, Open Banking e modelos de score mais avançados.
+
+---
+
+## Stack Tecnológico
+
+- Python 3
 - FastAPI
 - SQLAlchemy
 - Alembic
-- SQLite (development)
-- JWT Authentication
+- OAuth2 + JWT
+- SQLite (MVP, pronto para PostgreSQL)
+- Docker / Docker Compose
 
-## Main Features
-- Authentication and authorization
-- Credit score calculation engine
-- Score history
-- Explicit consent management
-- Audit logging
-- Data export and deletion
+---
 
-## API Documentation
-Interactive API documentation is available via Swagger:
-http://localhost:8000/docs
+## Funcionalidades Implementadas
 
-## Running the Project (Development)
+- Autenticação e autorização com JWT
+- Cadastro e gestão de usuários
+- Gestão de consentimento do usuário (versionado)
+- Registro e atualização de dados financeiros
+- Motor de cálculo de score (0–1000)
+- Histórico e versionamento de score
+- Logs e trilha de auditoria
+- Exportação de dados do usuário
+- Exclusão de dados (GDPR – direito ao esquecimento)
+- Padronização de erros e respostas
+- Documentação automática via Swagger
+
+---
+
+## Arquitetura
+
+A aplicação segue arquitetura modular, separando responsabilidades entre:
+- API (controllers)
+- Services (regras de negócio)
+- Models (persistência)
+- Security (autenticação, autorização e permissões)
+- Auditoria e compliance
+
+Documentação técnica detalhada está disponível na pasta `/docs`.
+
+---
+
+## Como Executar o Projeto
+
+### Pré-requisitos
+- Docker
+- Docker Compose
+
+### Subir a API
+
 ```bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+docker-compose up --build
 
-Project Status
+Acessos
 
-✅ Backend completed
-🚧 Frontend pending
-📦 Ready for frontend integration and client validation
+API: http://localhost:8000
 
-Notes
+Swagger (OpenAPI): http://localhost:8000/docs
 
-This project was developed following clean architecture principles and is suitable as a foundation for production environments with minimal adjustments (database and infrastructure).
+Health Check: http://localhost:8000/health
+
+Segurança e Compliance
+
+Autenticação baseada em token (JWT)
+
+Controle de acesso
+
+Registro de auditoria de ações sensíveis
+
+Consentimento explícito do usuário
+
+Exportação e exclusão de dados
+
+Base técnica alinhada às exigências do GDPR
+
+Status do Projeto
+
+✔ Backend MVP concluído
+✔ Infraestrutura Docker pronta
+✔ Documentação técnica entregue
+✔ Pronto para integração com frontend ou sistemas externos

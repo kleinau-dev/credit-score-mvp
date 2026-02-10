@@ -1,17 +1,26 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.api.routes import router
 from app.db.base import Base
 from app.db.engine import engine
-from app.models.user import User
-from app.models.financial_data import FinancialData
-from app.models.credit_score import CreditScore
-from app.models.user_consent import UserConsent
 from app.db import imports
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Credit Score API"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(router)
